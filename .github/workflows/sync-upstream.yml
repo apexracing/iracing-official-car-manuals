@@ -1,4 +1,4 @@
-name: Sync upstream
+name: Sync upstream and preserve site overlay
 
 on:
   schedule:
@@ -16,10 +16,71 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Merge Moskic/racedocs into this fork
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Check out this repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Merge upstream and restore Apex Racing customizations
+        shell: bash
         run: |
-          gh api --method POST \
-            "repos/${{ github.repository }}/merge-upstream" \
-            -f branch=main
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add upstream https://github.com/Moskic/racedocs.git
+          git fetch upstream main
+
+          custom_sha="$(git rev-parse HEAD)"
+
+          if git merge-base --is-ancestor upstream/main HEAD; then
+            echo "The fork already contains the latest upstream commit."
+            exit 0
+          fi
+
+          # Start a normal merge so upstream history remains visible. Conflicts
+          # outside the site overlay use the upstream version automatically.
+          set +e
+          git merge --no-commit --no-ff upstream/main
+          merge_status=$?
+          set -e
+
+          overlay_paths=(
+            .github/workflows/sync-upstream.yml
+            TRACKLOGIC_INTEGRATION.md
+            astro.config.mjs
+            src/components/SiteFooter.astro
+            src/components/SiteHeader.astro
+            src/layouts/BaseLayout.astro
+            src/pages/index.astro
+            src/pages/manuals/[slug].astro
+            src/scripts/language.ts
+            src/scripts/preferences.ts
+            src/styles/global.css
+          )
+
+          # These files define this site's theme, attribution, language bridge,
+          # and deployment behavior. Always restore them after an upstream merge.
+          git restore --source="$custom_sha" --staged --worktree -- "${overlay_paths[@]}"
+          git rm -f --ignore-unmatch src/pages/about.astro
+
+          mapfile -t conflicts < <(git diff --name-only --diff-filter=U)
+          for file in "${conflicts[@]}"; do
+            if git cat-file -e "upstream/main:$file" 2>/dev/null; then
+              git restore --source=upstream/main --staged --worktree -- "$file"
+            else
+              git rm -f --ignore-unmatch -- "$file"
+            fi
+          done
+
+          if git diff --name-only --diff-filter=U | grep -q .; then
+            echo "Unresolved conflicts remain after applying the site overlay."
+            exit 1
+          fi
+
+          if [ "$merge_status" -ne 0 ]; then
+            echo "Upstream conflicts were resolved using the documented overlay policy."
+          fi
+
+          git commit -m "chore: sync Moskic/racedocs and reapply site overlay"
+          git push origin HEAD:main
