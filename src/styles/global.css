@@ -175,6 +175,12 @@ html[data-language="en"] .language-pair > [data-lang="en"] {
   line-height: 1.75;
 }
 
+.about-section .about-rights-license {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--tl-border);
+}
+
 .about-project-link {
   width: fit-content;
   margin-top: 1rem;
