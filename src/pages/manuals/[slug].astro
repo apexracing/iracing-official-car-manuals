@@ -63,6 +63,7 @@ const splitTitleSuffix = (title: string, suffix: string) => {
 
 const titleZh = splitTitleSuffix(manual.titleZh, '用户手册');
 const titleEn = splitTitleSuffix(manual.titleEn ?? manual.titleZh, 'User Manual');
+const sourcePublishedAt = manual.source.publishedAt?.toISOString().slice(0, 10);
 ---
 
 <BaseLayout
@@ -105,6 +106,45 @@ const titleEn = splitTitleSuffix(manual.titleEn ?? manual.titleZh, 'User Manual'
           </span>
         </h1>
       </header>
+
+      <aside class="manual-source" aria-label="手册来源与权利声明 / Manual source and rights notice">
+        <h2 class="language-pair">
+          <span data-lang="zh">来源与声明</span>
+          <span data-lang="en">Source and notice</span>
+        </h2>
+        <dl>
+          <div>
+            <dt class="language-pair">
+              <span data-lang="zh">原始资料</span>
+              <span data-lang="en">Original source</span>
+            </dt>
+            <dd>{manual.source.title}</dd>
+          </div>
+          {manual.source.revision && (
+            <div>
+              <dt class="language-pair">
+                <span data-lang="zh">版本</span>
+                <span data-lang="en">Revision</span>
+              </dt>
+              <dd>{manual.source.revision}</dd>
+            </div>
+          )}
+          {sourcePublishedAt && (
+            <div>
+              <dt class="language-pair">
+                <span data-lang="zh">发布日期</span>
+                <span data-lang="en">Published</span>
+              </dt>
+              <dd>{sourcePublishedAt}</dd>
+            </div>
+          )}
+        </dl>
+        <p>{manual.source.notice}</p>
+        <p class="language-pair manual-rights-notice">
+          <span data-lang="zh">iRacing 名称、商标、原始手册及相关媒体内容归其各自权利人所有。本页面为独立整理与翻译项目，并非 iRacing 官方网站，也不代表获得其认可或合作。</span>
+          <span data-lang="en">The iRacing name, trademarks, original manuals, and related media remain the property of their respective rights holders. This is an independent organization and translation project, not an official iRacing website or endorsement.</span>
+        </p>
+      </aside>
 
       {
         sections.map((section) => {
