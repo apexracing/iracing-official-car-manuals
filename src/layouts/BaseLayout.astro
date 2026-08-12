@@ -24,7 +24,7 @@ const shareImage = new URL(image, Astro.site);
 ---
 
 <!doctype html>
-<html lang="zh-CN" data-language="zh" data-has-english={String(hasEnglish)}>
+<html lang="zh-CN" data-language="zh" data-theme="light" data-theme-mode="system" data-has-english={String(hasEnglish)}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -44,17 +44,47 @@ const shareImage = new URL(image, Astro.site);
     <meta name="twitter:image" content={shareImage} />
     <title>{title}</title>
     <script is:inline define:vars={{ hasEnglish }}>
-      try {
-        if (hasEnglish && localStorage.getItem('racedocs-language') === 'en') {
-          document.documentElement.dataset.language = 'en';
-          document.documentElement.lang = 'en';
-        }
-      } catch {}
+      (() => {
+        const root = document.documentElement;
+        const params = new URLSearchParams(location.search);
+        const normalizeLanguage = (value) => {
+          const language = value?.toLowerCase();
+          if (language === 'en' || language === 'en-us' || language === 'en_us') return 'en';
+          if (language === 'zh' || language === 'zh-cn' || language === 'zh_cn') return 'zh';
+        };
+        const normalizeTheme = (value) =>
+          value === 'dark' || value === 'light' || value === 'system' ? value : undefined;
+
+        try {
+          const queryLanguage = normalizeLanguage(params.get('lang') ?? params.get('language'));
+          const storedLanguage = normalizeLanguage(localStorage.getItem('racedocs-language'));
+          const language = hasEnglish ? queryLanguage ?? storedLanguage ?? 'zh' : 'zh';
+          root.dataset.language = language;
+          root.lang = language === 'en' ? 'en' : 'zh-CN';
+          if (queryLanguage) localStorage.setItem('racedocs-language', language);
+
+          const queryTheme = normalizeTheme(params.get('theme'));
+          const storedTheme = normalizeTheme(
+            localStorage.getItem('racedocs-theme') ?? localStorage.getItem('tracklogic-theme'),
+          );
+          const themeMode = queryTheme ?? storedTheme ?? 'system';
+          const theme = themeMode === 'system'
+            ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+            : themeMode;
+          root.dataset.themeMode = themeMode;
+          root.dataset.theme = theme;
+          root.style.colorScheme = theme;
+          if (queryTheme) localStorage.setItem('racedocs-theme', themeMode);
+        } catch {}
+      })();
     </script>
   </head>
   <body>
     <slot />
     <SiteFooter />
+    <script>
+      import '../scripts/preferences';
+    </script>
     <script is:inline>
       (() => {
         const language = document.documentElement.dataset.language === 'en' ? 'en' : 'zh';

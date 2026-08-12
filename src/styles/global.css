@@ -1,11 +1,46 @@
 :root {
   --font-body: Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
   --font-display: "Arial Black", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
-  color: #172026;
-  background: #f5f3ef;
+  --tl-bg-base: #f2f3f5;
+  --tl-bg-sidebar: #f7f8fa;
+  --tl-bg-surface: #fafbfc;
+  --tl-bg-card: #ffffff;
+  --tl-bg-control: #ffffff;
+  --tl-bg-hover: #e9edf3;
+  --tl-text-primary: #161a22;
+  --tl-text-secondary: #55606f;
+  --tl-text-muted: #727d8c;
+  --tl-border: #d8dde5;
+  --tl-border-strong: #c2c9d4;
+  --tl-primary: #c91927;
+  --tl-primary-hover: #a91520;
+  --tl-primary-soft: #f7e7e9;
+  --tl-header: #171a21;
+  --tl-shadow: #27343c0d;
+  color: var(--tl-text-primary);
+  background: var(--tl-bg-base);
   font-family: var(--font-body);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+}
+
+:root[data-theme="dark"] {
+  --tl-bg-base: #0b0c10;
+  --tl-bg-sidebar: #0f1218;
+  --tl-bg-surface: #101217;
+  --tl-bg-card: #141820;
+  --tl-bg-control: #171a21;
+  --tl-bg-hover: #20242d;
+  --tl-text-primary: #f5f7fb;
+  --tl-text-secondary: #b5bdca;
+  --tl-text-muted: #8993a3;
+  --tl-border: #2a303b;
+  --tl-border-strong: #384150;
+  --tl-primary: #4075e5;
+  --tl-primary-hover: #5b8cf0;
+  --tl-primary-soft: #182440;
+  --tl-header: #0f1218;
+  --tl-shadow: #00000059;
 }
 
 * {
@@ -25,6 +60,34 @@ body {
   min-width: 20rem;
   margin: 0;
   overflow-x: hidden;
+  color: var(--tl-text-primary);
+  background: var(--tl-bg-base);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--tl-border-strong) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: var(--tl-border-strong);
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--tl-text-muted);
+  background-clip: padding-box;
 }
 
 button,
@@ -38,7 +101,7 @@ a {
 }
 
 a {
-  color: #9e2a2b;
+  color: var(--tl-primary);
 }
 
 [data-lang="en"] {
@@ -712,6 +775,185 @@ button:focus-visible {
   }
 }
 
+/* Tracklogic light/dark theme bridge. */
+.about-lead,
+.about-section p,
+.catalog-intro > p:last-child,
+.catalog-controls label,
+.catalog-count,
+.manual-meta,
+.manual-prose,
+.not-found p,
+.site-footer {
+  color: var(--tl-text-secondary);
+}
+
+.catalog-kicker,
+.about-project-link,
+.not-found > p:first-child,
+.manual-prose h4 {
+  color: var(--tl-primary);
+}
+
+.about-project-link:hover,
+.site-footer a:hover {
+  color: var(--tl-primary-hover);
+}
+
+.catalog-controls,
+.mobile-reader-bar {
+  border-color: var(--tl-border);
+  background: color-mix(in srgb, var(--tl-bg-sidebar) 94%, transparent);
+}
+
+.catalog-controls input,
+.catalog-controls select,
+.toc-open,
+.toc-dialog-header button {
+  border-color: var(--tl-border-strong);
+  color: var(--tl-text-primary);
+  background: var(--tl-bg-control);
+}
+
+.manual-card,
+.reader-sidebar,
+.manual-toc .toc-subsection a,
+.table-scroll table,
+.toc-heading {
+  color: var(--tl-text-primary);
+  background: var(--tl-bg-card);
+}
+
+.manual-card,
+.reader-sidebar,
+.table-scroll {
+  border-color: var(--tl-border);
+}
+
+.manual-card {
+  box-shadow: 0 0.8rem 2rem var(--tl-shadow);
+}
+
+.card-type-badge {
+  color: var(--tl-text-secondary);
+  background: var(--tl-bg-hover);
+}
+
+.card-detail-badge {
+  border-color: var(--tl-border);
+  color: var(--tl-text-secondary);
+  background: var(--tl-bg-card);
+}
+
+.manual-card-meta,
+.manual-heading,
+.manual-toc .toc-subsection a,
+.table-scroll th,
+.table-scroll td,
+.toc-dialog-header {
+  border-color: var(--tl-border);
+}
+
+.footer-site-name,
+.site-footer a,
+.toc-heading,
+.manual-section h2,
+.manual-heading h1,
+.catalog-intro h1,
+.about-intro h1,
+.manual-card h2 {
+  color: var(--tl-text-primary);
+}
+
+.site-header {
+  background: var(--tl-header);
+}
+
+.manual-toc li:not(.toc-subsection) a {
+  border-bottom-color: var(--tl-primary);
+  color: #fff;
+  background: var(--tl-bg-hover);
+}
+
+:root[data-theme="light"] .manual-toc li:not(.toc-subsection) a {
+  background: #414348;
+}
+
+.manual-toc .toc-subsection a {
+  color: var(--tl-text-secondary);
+}
+
+.manual-toc .toc-subsection a::after {
+  color: var(--tl-primary);
+}
+
+.manual-toc .toc-subsection a:hover,
+.manual-toc .toc-subsection a.is-active {
+  border-left-color: var(--tl-primary);
+  color: var(--tl-primary-hover);
+  background: var(--tl-primary-soft);
+}
+
+.manual-toc li:not(.toc-subsection) a:hover,
+.manual-toc li:not(.toc-subsection) a.is-active {
+  border-left-color: var(--tl-primary);
+  color: #fff;
+  background: var(--tl-primary-soft);
+}
+
+:root[data-theme="dark"] .manual-toc li:not(.toc-subsection) a:hover,
+:root[data-theme="dark"] .manual-toc li:not(.toc-subsection) a.is-active {
+  background: #25345b;
+}
+
+.manual-section h2,
+.manual-section h3 {
+  border-bottom-color: var(--tl-primary);
+}
+
+.manual-section h3 {
+  color: var(--tl-text-primary);
+}
+
+.manual-prose blockquote,
+.translation-missing {
+  color: var(--tl-text-secondary);
+  background: var(--tl-bg-sidebar);
+}
+
+.manual-prose blockquote {
+  border-left-color: var(--tl-primary);
+}
+
+.manual-prose img {
+  background: var(--tl-bg-hover);
+}
+
+.table-scroll th {
+  color: #fff;
+  background: var(--tl-header);
+}
+
+.table-scroll td {
+  color: var(--tl-text-secondary);
+  background: var(--tl-bg-card);
+}
+
+.toc-dialog {
+  color: var(--tl-text-primary);
+  background: var(--tl-bg-surface);
+}
+
+.catalog-empty button,
+.not-found a {
+  background: var(--tl-primary);
+}
+
+::selection {
+  color: #fff;
+  background: var(--tl-primary);
+}
+
 .translation-missing {
   padding: 1rem;
   color: #6b7378;
@@ -863,4 +1105,33 @@ button:focus-visible {
     font-size: 1rem;
   }
 
+}
+
+/* Keep late mobile rules on the same Tracklogic tokens. */
+.translation-missing {
+  color: var(--tl-text-secondary);
+  background: var(--tl-bg-sidebar);
+}
+
+@media (max-width: 59.99rem) {
+  .mobile-reader-bar {
+    border-color: var(--tl-border);
+    background: color-mix(in srgb, var(--tl-bg-sidebar) 94%, transparent);
+  }
+
+  .toc-dialog {
+    color: var(--tl-text-primary);
+    background: var(--tl-bg-surface);
+  }
+
+  .toc-dialog-header {
+    border-color: var(--tl-border);
+  }
+
+  .toc-open,
+  .toc-dialog-header button {
+    border-color: var(--tl-border-strong);
+    color: var(--tl-text-primary);
+    background: var(--tl-bg-control);
+  }
 }

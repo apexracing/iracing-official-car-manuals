@@ -14,6 +14,20 @@ export function applyLanguage(language: SiteLanguage, persist = true) {
   root.dataset.language = language;
   root.lang = language === 'en' ? 'en' : 'zh-CN';
 
+  const suffix = language === 'en' ? 'En' : 'Zh';
+  for (const element of document.querySelectorAll<HTMLElement>('[data-placeholder-zh][data-placeholder-en]')) {
+    const placeholder = element.dataset[`placeholder${suffix}`];
+    if (placeholder !== undefined) element.setAttribute('placeholder', placeholder);
+  }
+  for (const element of document.querySelectorAll<HTMLElement>('[data-label-zh][data-label-en]')) {
+    const label = element.dataset[`label${suffix}`];
+    if (label !== undefined) element.textContent = label;
+  }
+  for (const element of document.querySelectorAll<HTMLElement>('[data-text-zh][data-text-en]')) {
+    const text = element.dataset[`text${suffix}`];
+    if (text !== undefined) element.textContent = text;
+  }
+
   for (const button of languageButtons()) {
     button.setAttribute('aria-pressed', String(button.dataset.languageOption === language));
   }
