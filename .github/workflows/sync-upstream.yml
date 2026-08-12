@@ -49,7 +49,6 @@ jobs:
             .github/workflows/sync-upstream.yml
             TRACKLOGIC_INTEGRATION.md
             astro.config.mjs
-            src/components/SiteFooter.astro
             src/components/SiteHeader.astro
             src/layouts/BaseLayout.astro
             src/pages/index.astro
@@ -62,7 +61,7 @@ jobs:
           # These files define this site's theme, attribution, language bridge,
           # and deployment behavior. Always restore them after an upstream merge.
           git restore --source="$custom_sha" --staged --worktree -- "${overlay_paths[@]}"
-          git rm -f --ignore-unmatch src/pages/about.astro
+          git rm -f --ignore-unmatch src/pages/about.astro src/components/SiteFooter.astro
 
           mapfile -t conflicts < <(git diff --name-only --diff-filter=U)
           for file in "${conflicts[@]}"; do

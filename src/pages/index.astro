@@ -143,48 +143,78 @@ const manualCards = manuals.map((manual) => ({
     </section>
 
     <section class="catalog-credits" aria-labelledby="catalog-credits-title">
-      <h2 id="catalog-credits-title" class="language-pair">
-        <span data-lang="zh">版权、来源与第三方贡献</span>
-        <span data-lang="en">Copyright, sources, and third-party contributions</span>
-      </h2>
-      <div class="catalog-credits-grid">
-        <div>
-          <h3 class="language-pair">
-            <span data-lang="zh">原项目与贡献者</span>
-            <span data-lang="en">Original project and contributors</span>
-          </h3>
-          <p class="language-pair">
-            <span data-lang="zh">RaceDocs 原项目由 Moskic 创建并维护；本站从 Moskic/racedocs 自动同步，是加入 Tracklogic 主题与独立部署配置的派生发布版本。第三方提供的翻译、转录、资料整理、数据、图片处理与代码贡献归原贡献者，其署名与贡献记录以原项目、提交历史及相关来源说明为准。</span>
-            <span data-lang="en">RaceDocs was created and is maintained by Moskic. This site automatically synchronizes from Moskic/racedocs and is a derived deployment with the Tracklogic theme and independent deployment configuration. Translations, transcriptions, documentation work, data, image processing, and code supplied by third parties remain attributed to their original contributors, as recorded by the upstream project, commit history, and applicable source notices.</span>
+      <div class="catalog-credit-card">
+        <header class="catalog-credit-heading">
+          <p class="catalog-credit-kicker language-pair">
+            <span data-lang="zh">项目来源</span>
+            <span data-lang="en">PROJECT ATTRIBUTION</span>
           </p>
-          <div class="catalog-credit-links">
-            <a href="https://racedocs.moskic.com/" class="language-pair">
-              <span data-lang="zh">原始站点 ↗</span>
-              <span data-lang="en">Original site ↗</span>
-            </a>
-            <a href="https://github.com/Moskic/racedocs" class="language-pair">
-              <span data-lang="zh">上游仓库 ↗</span>
-              <span data-lang="en">Upstream repository ↗</span>
-            </a>
-            <a href="https://github.com/Moskic/racedocs/graphs/contributors" class="language-pair">
-              <span data-lang="zh">贡献者记录 ↗</span>
-              <span data-lang="en">Contributor history ↗</span>
-            </a>
+          <h2 id="catalog-credits-title" class="language-pair">
+            <span data-lang="zh">感谢原项目作者 Moskic</span>
+            <span data-lang="en">With thanks to Moskic</span>
+          </h2>
+          <p class="language-pair catalog-credit-lead">
+            <span data-lang="zh">RaceDocs 由 Moskic 创建并持续维护，为中文模拟赛车玩家整理了易于查阅的双语手册资料。本站尊重并保留原项目的作者信息、资料来源与权利声明。</span>
+            <span data-lang="en">RaceDocs was created and continues to be maintained by Moskic, organizing accessible bilingual manuals for Chinese-speaking sim racers. This site preserves the original project's authorship, sources, and rights notices.</span>
+          </p>
+        </header>
+
+        <div class="catalog-credit-details">
+          <dl class="catalog-credit-facts">
+            <div>
+              <dt class="language-pair"><span data-lang="zh">源作者</span><span data-lang="en">Original author</span></dt>
+              <dd>Moskic</dd>
+            </div>
+            <div>
+              <dt class="language-pair"><span data-lang="zh">原项目</span><span data-lang="en">Original project</span></dt>
+              <dd>RaceDocs</dd>
+            </div>
+            <div>
+              <dt class="language-pair"><span data-lang="zh">资材来源</span><span data-lang="en">Material sources</span></dt>
+              <dd class="language-pair">
+                <span data-lang="zh">iRacing 官方车辆手册及相关品牌资料</span>
+                <span data-lang="en">Official iRacing vehicle manuals and related brand materials</span>
+              </dd>
+            </div>
+          </dl>
+
+          <div class="catalog-credit-story">
+            <section>
+              <h3 class="language-pair"><span data-lang="zh">致谢</span><span data-lang="en">Acknowledgements</span></h3>
+              <p class="language-pair">
+                <span data-lang="zh">感谢 Moskic 创建 RaceDocs，并完成手册转录、双语整理与网页化的基础工作；感谢 iRacing 提供原始车辆手册，也感谢相关品牌与权利方提供构成这些资料的车辆、商标及视觉资产。</span>
+                <span data-lang="en">Thank you to Moskic for creating RaceDocs and establishing its transcription, bilingual organization, and web presentation; to iRacing for the original vehicle manuals; and to the relevant brands and rights holders for the vehicles, marks, and visual assets represented in these materials.</span>
+              </p>
+            </section>
+            <section>
+              <h3 class="language-pair"><span data-lang="zh">Fork 的目的</span><span data-lang="en">Purpose of this fork</span></h3>
+              <p class="language-pair">
+                <span data-lang="zh">本 Fork 用于持续同步并保留原项目内容，同时适配 Tracklogic 深浅主题、外部主题与语言参数，并通过独立域名提供稳定访问。本站不会取代原项目，也不改变任何内容与品牌资产的权利归属。</span>
+                <span data-lang="en">This fork preserves and continuously synchronizes the original project while adding Tracklogic light/dark themes, external theme and language parameters, and stable access through an independent domain. It does not replace the original project or alter ownership of any content or brand assets.</span>
+              </p>
+            </section>
           </div>
         </div>
-        <div>
-          <h3 class="language-pair">
-            <span data-lang="zh">内容、图片与品牌权利</span>
-            <span data-lang="en">Content, imagery, and brand rights</span>
-          </h3>
-          <p class="language-pair">
-            <span data-lang="zh">iRacing 原始手册及其文字、数据、图表、截图、照片和其他媒体资产归 iRacing 或其许可方所有。车辆与制造商名称、商标、Logo、品牌标识和产品图片归各自品牌方或相应权利人所有。本站的翻译、整理与网页化不改变上述权利归属，也不表示获得 iRacing 或相关品牌的授权、认可、赞助或合作。</span>
-            <span data-lang="en">The original iRacing manuals and their text, data, diagrams, captures, photographs, and other media assets belong to iRacing or its licensors. Vehicle and manufacturer names, trademarks, logos, brand identities, and product imagery belong to their respective brand owners or rights holders. Translation, organization, and web presentation do not alter ownership or imply authorization, endorsement, sponsorship, or partnership by iRacing or the referenced brands.</span>
-          </p>
+
+        <div class="catalog-credit-footer">
           <p class="language-pair catalog-license-note">
-            <span data-lang="zh">MIT License 仅适用于网站源代码，不适用于手册内容、译文、数据、图片、Logo、商标或其他第三方资产。</span>
-            <span data-lang="en">The MIT License applies only to the website source code, not to manual content, translations, data, images, logos, trademarks, or other third-party assets.</span>
+            <span data-lang="zh">iRacing 手册与媒体资产归 iRacing 或其许可方所有；车辆名称、商标、Logo、品牌标识及产品图片归各自品牌方或权利人所有。本站为非官方独立项目。MIT License 仅适用于网站源代码。</span>
+            <span data-lang="en">iRacing manuals and media belong to iRacing or its licensors; vehicle names, trademarks, logos, brand identities, and product imagery belong to their respective owners. This is an unofficial independent project. The MIT License applies only to the website source code.</span>
           </p>
+          <nav class="catalog-credit-links" aria-label="项目来源链接 / Project source links">
+            <a href="https://racedocs.moskic.com/" class="language-pair">
+              <span data-lang="zh">访问原始站点 ↗</span>
+              <span data-lang="en">Visit original site ↗</span>
+            </a>
+            <a href="https://github.com/Moskic/racedocs" class="language-pair">
+              <span data-lang="zh">查看上游仓库 ↗</span>
+              <span data-lang="en">View upstream repository ↗</span>
+            </a>
+            <a href="https://github.com/apexracing/iracing-official-car-manuals" class="language-pair">
+              <span data-lang="zh">本站 Fork ↗</span>
+              <span data-lang="en">This site's fork ↗</span>
+            </a>
+          </nav>
         </div>
       </div>
     </section>
